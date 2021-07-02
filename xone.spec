@@ -5,16 +5,18 @@
 
 Name:     xone
 Version:  0.1
-Release:  0%{?dist}
+Release:  1%{?dist}
 Summary:  Linux kernel driver for Xbox One and Xbox Series X|S accessories 
 License:  GPLv2
 URL:      https://github.com/medusalix/xone
 Source0:  %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1:  modules-load-d-%{name}.conf
 
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  kmodtool
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  sed
 
 Requires:       bash
 
@@ -59,16 +61,21 @@ done
 %install
 for kernel_version in %{?kernel_versions}; do
  mkdir -p %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
- install -D -m 755 _kmod_build_${kernel_version%%___*}/xone-*.ko %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
- chmod a+x %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/xone-*.ko
+ install -D -m 755 _kmod_build_${kernel_version%%___*}/%{name}-*.ko %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
+ chmod a+x %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/%{name}-*.ko
 done
 %{?akmod_install}
 
 install -D -m 0644 %{name}-%{version}/modprobe.conf %{buildroot}%{_modprobedir}/60-%{name}.conf
+install -D -m 0644 %{SOURCE1} %{buildroot}%{_modulesloaddir}/%{name}.conf
 
 %files
 %doc %{name}-%{version}/README.md 
 %license %{name}-%{version}/LICENSE
 %{_modprobedir}/60-%{name}.conf
+%{_modulesloaddir}/%{name}.conf
 
 %changelog
+* Fri Jul 02 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.1-1
+- Initial spec
+
