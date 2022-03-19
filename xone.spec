@@ -5,7 +5,7 @@
 
 Name:     xone
 Version:  0.2
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Linux kernel driver for Xbox One and Xbox Series X|S accessories 
 License:  GPLv2
 URL:      https://github.com/medusalix/xone
@@ -19,9 +19,13 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  sed
 
 Requires:       bash
+Requires:       lpf-xone-firmware
 
 Provides:       %{name}-kmod-common = %{version}-%{release}
 Requires:       %{name}-kmod >= %{version}
+
+Conflicts:      xow <= 0.5
+Obsoletes:      xow <= 0.5
 
 # kmodtool does its magic here
 %{expand:%(kmodtool --target %{_target_cpu} --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null) }
@@ -76,6 +80,9 @@ install -D -m 0644 %{SOURCE1} %{buildroot}%{_modulesloaddir}/%{name}.conf
 %{_modulesloaddir}/%{name}.conf
 
 %changelog
+* Sat Mar 19 2022 Jan Drögehoff <sentrycraft123@gmail.com> - 0.2-2
+- Obsolete xow and require firmware
+
 * Sun Feb 27 2022 Jan Drögehoff <sentrycraft123@gmail.com> - 0.2-1
 - Update to 0.2
 

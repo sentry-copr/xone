@@ -19,8 +19,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  lpf >= 0.1
 Requires:       lpf >= 0.1
 
-Conflicts:		lpf-xow-firmware <= 0.5
-Obsoletes:		lpf-xow-firmware <= 0.5
+Conflicts:      lpf-xow-firmware <= 0.5
+Obsoletes:      lpf-xow-firmware <= 0.5
 
 %description
 Bootstrap package allowing the lpf system to build the non-redistributable
