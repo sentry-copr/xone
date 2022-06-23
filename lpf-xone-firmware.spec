@@ -5,7 +5,7 @@
 
 Name:       lpf-xone-firmware
 Summary:    Linux driver for the Xbox One wireless dongle.
-Version:    0.2
+Version:    0.3
 
 Release:    1%{?dist}
 License:    GPLv2
@@ -51,6 +51,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %attr(775,pkg-build,pkg-build) /var/lib/lpf/packages/%{target_pkg}
 
 %changelog
+* Thu Jun 23 2022 Jan Drögehoff <sentrycraft123@gmail.com> - 0.3-1
+- Update to 0.3
+
 * Sun Feb 27 2022 Jan Drögehoff <sentrycraft123@gmail.com> - 0.2-1
 - initial lpf package
 
