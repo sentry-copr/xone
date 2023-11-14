@@ -1,6 +1,6 @@
 Name:           xone-firmware
 Version:        0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Proprietary firmware for the Xbox One Wireless Dongle
 
 License:        Proprietary
