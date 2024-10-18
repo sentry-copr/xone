@@ -28,8 +28,8 @@ BuildRequires:  sed
 Requires:       bash
 Requires:       lpf-xone-firmware
 
-Provides:       %{name}-kmod-common = %{version}-%{release}
-Requires:       %{name}-kmod >= %{version}
+Provides:       %{name}-kmod-common = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kmod >= %{epoch}:%{version}
 
 Conflicts:      xow <= 0.5
 Obsoletes:      xow <= 0.5
