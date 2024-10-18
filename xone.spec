@@ -3,18 +3,20 @@
 %global debug_package %{nil}
 %endif
 
-%global commit 58004bff8bda0ea36dce4b970a054b95800e3c3f
+%global commit 29ec3577e52a50f876440c81267f609575c5161e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:     xone
 Version:  0.3.0_%{shortcommit}
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  Linux kernel driver for Xbox One and Xbox Series X|S accessories 
 License:  GPLv2
 URL:      https://github.com/medusalix/xone
 #Source0:  %%{url}/archive/v%%{version}/%%{name}-%%{version}.tar.gz
 Source0:  %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1:  modules-load-d-%{name}.conf
+#Patch:   https://patch-diff.githubusercontent.com/raw/medusalix/xone/pull/48.patch#/%{name}-%{version}-kernel-6.11.patch
+Patch:   https://patch-diff.githubusercontent.com/raw/medusalix/xone/pull/53.patch#/%{name}-%{version}-kernel-6.12.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -86,6 +88,9 @@ install -D -m 0644 %{SOURCE1} %{buildroot}%{_modulesloaddir}/%{name}.conf
 %{_modulesloaddir}/%{name}.conf
 
 %changelog
+* Fri Oct 18 2024 Jan200101 <sentrycraft123@gmail.com> - 0.3.0_29ec357-5
+- Add kernel 6.12 patch
+
 * Sun Jan 28 2024 Jan Drögehoff <sentrycraft123@gmail.com> - 0.3-4
 - Force bump release
 
