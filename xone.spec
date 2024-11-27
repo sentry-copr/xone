@@ -1,41 +1,23 @@
-%if 0%{?fedora}
-%global buildforkernels akmod
 %global debug_package %{nil}
-%endif
-
-%global commit 29ec3577e52a50f876440c81267f609575c5161e
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global shortversion 0.3
 
 Name:     xone
 Version:  0.3.0
-Release:  6%{?dist}
+Release:  7%{?dist}
 Epoch:    1
 Summary:  Linux kernel driver for Xbox One and Xbox Series X|S accessories 
 License:  GPLv2
 URL:      https://github.com/medusalix/xone
-#Source0:  %%{url}/archive/v%%{version}/%%{name}-%%{version}.tar.gz
-Source0:  %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:  %{url}/archive/v%{shortversion}/%{name}-%{version}.tar.gz
 Source1:  modules-load-d-%{name}.conf
-#Patch:   https://patch-diff.githubusercontent.com/raw/medusalix/xone/pull/48.patch#/%%{name}-%%{version}-kernel-6.11.patch
-Patch:   https://patch-diff.githubusercontent.com/raw/medusalix/xone/pull/53.patch#/%{name}-%{version}-kernel-6.12.patch
 
-BuildRequires:  gcc
-BuildRequires:  make
-BuildRequires:  kmodtool
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  sed
-
-Requires:       bash
-Requires:       lpf-xone-firmware
 
 Provides:       %{name}-kmod-common = %{epoch}:%{version}-%{release}
 Requires:       %{name}-kmod >= %{epoch}:%{version}
 
 Conflicts:      xow <= 0.5
 Obsoletes:      xow <= 0.5
-
-# kmodtool does its magic here
-%{expand:%(kmodtool --target %{_target_cpu} --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null) }
 
 %description
 xone is a Linux kernel driver for Xbox One and Xbox Series X|S accessories.
@@ -50,45 +32,24 @@ Requires: kernel-devel
 kmod package for %{name}
 
 %prep
-# error out if there was something wrong with kmodtool
-%{?kmodtool_check}
-
-# print kmodtool output for debugging purposes:
-kmodtool --target %{_target_cpu} --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null
-
-%autosetup -c %{name}-%{commit} -N
-
-pushd %{name}-%{commit}
-%autopatch -m0 -p1
-popd
-
-for kernel_version  in %{?kernel_versions} ; do
-  cp -a %{name}-%{commit} _kmod_build_${kernel_version%%___*}
-done
+%autosetup -n %{name}-%{shortversion} 
 
 %build
-for kernel_version  in %{?kernel_versions} ; do
-  make V=1 %{?_smp_mflags} -C ${kernel_version##*___} M=${PWD}/_kmod_build_${kernel_version%%___*} VERSION=v%{version} modules
-done
+# Nothing to build
 
 %install
-for kernel_version in %{?kernel_versions}; do
- mkdir -p %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
- install -D -m 755 _kmod_build_${kernel_version%%___*}/%{name}-*.ko %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
- chmod a+x %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/%{name}-*.ko
-done
-%{?akmod_install}
-
-install -D -m 0644 %{name}-%{commit}/install/modprobe.conf %{buildroot}%{_modprobedir}/60-%{name}.conf
-install -D -m 0644 %{SOURCE1} %{buildroot}%{_modulesloaddir}/%{name}.conf
+install -D -m 0644 install/modprobe.conf %{buildroot}%{_modprobedir}/60-%{name}.conf
+install -D -m 0644 %{SOURCE0} %{buildroot}%{_modulesloaddir}/%{name}.conf
 
 %files
-%doc %{name}-%{commit}/README.md 
-%license %{name}-%{commit}/LICENSE
+%license LICENSE
 %{_modprobedir}/60-%{name}.conf
 %{_modulesloaddir}/%{name}.conf
 
 %changelog
+* Wed Nov 27 2024 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.0-7
+- split kernel module into separate package
+
 * Fri Oct 18 2024 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.0-6
 - Normalize version to allow updates
 
