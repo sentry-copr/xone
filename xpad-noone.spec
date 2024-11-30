@@ -47,7 +47,7 @@ kmod package for %{name}
 # print kmodtool output for debugging purposes:
 kmodtool --target %{_target_cpu} --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null
 
-%autosetup -c %{name}-%{short_commit} -N
+%autosetup -c %{name}-%{short_commit}
 
 for kernel_version  in %{?kernel_versions} ; do
   cp -a %{name}-%{short_commit} _kmod_build_${kernel_version%%___*}
