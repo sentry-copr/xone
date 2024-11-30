@@ -3,7 +3,7 @@
 
 Name:     xone
 Version:  0.3.0
-Release:  7%{?dist}
+Release:  8%{?dist}
 Epoch:    1
 Summary:  Linux kernel driver for Xbox One and Xbox Series X|S accessories 
 License:  GPLv2
@@ -39,7 +39,7 @@ kmod package for %{name}
 
 %install
 install -D -m 0644 install/modprobe.conf %{buildroot}%{_modprobedir}/60-%{name}.conf
-install -D -m 0644 %{SOURCE0} %{buildroot}%{_modulesloaddir}/%{name}.conf
+install -D -m 0644 %{SOURCE1} %{buildroot}%{_modulesloaddir}/%{name}.conf
 
 %files
 %license LICENSE
@@ -47,6 +47,9 @@ install -D -m 0644 %{SOURCE0} %{buildroot}%{_modulesloaddir}/%{name}.conf
 %{_modulesloaddir}/%{name}.conf
 
 %changelog
+* Sat Nov 30 2024 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.0-8
+- correct modules config
+
 * Wed Nov 27 2024 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.0-7
 - split kernel module into separate package
 
