@@ -3,15 +3,15 @@
 %global debug_package %{nil}
 %endif
 
-%global short_commit c3d1610
+%global commit 2f26ea44da28474d6f1680bbbb97afc37736a8fe
 
 Name:     xpad-noone
 Version:  1
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  xpad drivers without support for Xbox Controllers
 License:  GPLv2
-URL:      https://github.com/medusalix/xpad-noone
-Source0:  %{url}/archive/%{short_commit}/%{name}-%{short_commit}.tar.gz
+URL:      https://github.com/Jan200101/xpad-noone
+Source0:  %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -47,10 +47,10 @@ kmod package for %{name}
 # print kmodtool output for debugging purposes:
 kmodtool --target %{_target_cpu} --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null
 
-%autosetup -c %{name}-%{short_commit}
+%autosetup -c %{name}-%{commit}
 
 for kernel_version  in %{?kernel_versions} ; do
-  cp -a %{name}-%{short_commit} _kmod_build_${kernel_version%%___*}
+  cp -a %{name}-%{commit} _kmod_build_${kernel_version%%___*}
 done
 
 %build
@@ -67,10 +67,13 @@ done
 %{?akmod_install}
 
 %files
-%doc %{name}-%{short_commit}/README.md 
-%license %{name}-%{short_commit}/LICENSE
+%doc %{name}-%{commit}/README.md 
+%license %{name}-%{commit}/LICENSE
 
 %changelog
+* Sat Apr 19 2025 Jan200101 <sentrycraft123@gmail.com> - 1-4
+- pull updates from upstream
+
 * Tue Jul 23 2024 Jan200101 <sentrycraft123@gmail.com> - 1-3
 - Initial build
 
