@@ -3,7 +3,7 @@
 %endif
 %global debug_package %{nil}
 
-%global commit 29ec3577e52a50f876440c81267f609575c5161e
+%global commit c682b0cd4fd56d2d9639b64787034a375535eb4b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global prjname xone
@@ -11,14 +11,13 @@
 Name:           %{prjname}-kmod
 Summary:        Kernel module (kmod) for %{prjname}
 Version:        0.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Epoch:          1
 License:        GPLv2+
-
-URL:            https://github.com/medusalix/xone
+#URL:            https://github.com/medusalix/xone
+URL:            https://github.com/dlundqvist/xone
 #Source0:       %%{url}/archive/v%%{version}/%%{name}-%%{version}.tar.gz
-Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-Patch:   https://patch-diff.githubusercontent.com/raw/medusalix/xone/pull/53.patch#/%{name}-%{version}-kernel-6.12.patch
+Source0:        %{url}/archive/%{commit}/%{prjname}-%{commit}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  elfutils-libelf-devel
@@ -43,10 +42,7 @@ This package contains the kmod module for %{prjname}.
 # print kmodtool output for debugging purposes:
 kmodtool  --target %{_target_cpu} --kmodname %{prjname} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null
 
-%setup -q -c
-(cd xone-%{commit}
-%patch -P 0 -p1
-)
+%autosetup -c %{name}-%{commmt} -N
 
 for kernel_version  in %{?kernel_versions} ; do
   cp -a xone-%{commit} _kmod_build_${kernel_version%%___*}
@@ -68,6 +64,9 @@ done
 
 
 %changelog
+* Sat Apr 19 2025 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.0-8
+- switch package to a maintained fork
+
 * Wed Nov 27 2024 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.0-7
 - split kernel module into separate package
 
