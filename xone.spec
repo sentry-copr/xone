@@ -1,15 +1,14 @@
 %global debug_package %{nil}
-%global commit c682b0cd4fd56d2d9639b64787034a375535eb4b
 
 Name:     xone
-Version:  0.3.0
-Release:  9%{?dist}
+Version:  0.3.1
+Release:  1%{?dist}
 Epoch:    1
 Summary:  Linux kernel driver for Xbox One and Xbox Series X|S accessories 
 License:  GPLv2
 #URL:      https://github.com/medusalix/xone
 URL:      https://github.com/dlundqvist/xone
-Source0:  %{url}/archive/%{commit}.tar.gz#/%{name}-%{commit}.tar.gz
+Source0:  %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:  modules-load-d-%{name}.conf
 
 BuildRequires:  systemd-rpm-macros
@@ -33,7 +32,7 @@ Requires: kernel-devel
 kmod package for %{name}
 
 %prep
-%autosetup -n %{name}-%{commit} 
+%autosetup
 
 %build
 # Nothing to build
@@ -48,6 +47,9 @@ install -D -m 0644 %{SOURCE1} %{buildroot}%{_modulesloaddir}/%{name}.conf
 %{_modulesloaddir}/%{name}.conf
 
 %changelog
+* Thu May 22 2025 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.1-1
+- rebuilt
+
 * Sat Apr 19 2025 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.0-9
 - switch package to a maintained fork
 
