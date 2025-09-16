@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:     xone
-Version:  0.3.1
+Version:  0.4.5
 Release:  1%{?dist}
 Epoch:    1
 Summary:  Linux kernel driver for Xbox One and Xbox Series X|S accessories 
@@ -47,6 +47,9 @@ install -D -m 0644 %{SOURCE1} %{buildroot}%{_modulesloaddir}/%{name}.conf
 %{_modulesloaddir}/%{name}.conf
 
 %changelog
+* Tue Sep 16 2025 Jan200101 <sentrycraft123@gmail.com> - 1:0.4.5-1
+- Update to 0.4.5
+
 * Thu May 22 2025 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.1-1
 - rebuilt
 

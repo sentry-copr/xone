@@ -7,7 +7,7 @@
 
 Name:           %{prjname}-kmod
 Summary:        Kernel module (kmod) for %{prjname}
-Version:        0.3.1
+Version:        0.4.5
 Release:        1%{?dist}
 Epoch:          1
 License:        GPLv2+
@@ -61,6 +61,9 @@ done
 
 
 %changelog
+* Tue Sep 16 2025 Jan200101 <sentrycraft123@gmail.com> - 1:0.4.5-1
+- Update to 0.4.5
+
 * Thu May 22 2025 Jan200101 <sentrycraft123@gmail.com> - 1:0.3.1-1
 - Updatae to 0.3.1
 
