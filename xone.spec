@@ -1,12 +1,11 @@
 %global debug_package %{nil}
 
 Name:     xone
-Version:  0.4.8
+Version:  0.5.8
 Release:  1%{?dist}
 Epoch:    1
 Summary:  Linux kernel driver for Xbox One and Xbox Series X|S accessories 
 License:  GPLv2
-#URL:      https://github.com/medusalix/xone
 URL:      https://github.com/dlundqvist/xone
 Source0:  %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:  modules-load-d-%{name}.conf
@@ -47,6 +46,9 @@ install -D -m 0644 %{SOURCE1} %{buildroot}%{_modulesloaddir}/%{name}.conf
 %{_modulesloaddir}/%{name}.conf
 
 %changelog
+* Tue May 05 2026 Jan200101 <sentrycraft123@gmail.com> - 1:0.5.8-1
+- Update to 0.5.8
+
 * Thu Oct 30 2025 Jan200101 <sentrycraft123@gmail.com> - 1:0.4.8-1
 - Update to 0.4.8
 

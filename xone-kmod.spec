@@ -7,13 +7,11 @@
 
 Name:           %{prjname}-kmod
 Summary:        Kernel module (kmod) for %{prjname}
-Version:        0.4.8
+Version:        0.5.8
 Release:        1%{?dist}
 Epoch:          1
 License:        GPLv2+
-#URL:            https://github.com/medusalix/xone
 URL:            https://github.com/dlundqvist/xone
-#Source0:       %%{url}/archive/v%%{version}/%%{name}-%%{version}.tar.gz
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
@@ -61,6 +59,9 @@ done
 
 
 %changelog
+* Tue May 05 2026 Jan200101 <sentrycraft123@gmail.com> - 1:0.5.8-1
+- Update to 0.5.8
+
 * Thu Oct 30 2025 Jan200101 <sentrycraft123@gmail.com> - 1:0.4.8-1
 - Update to 0.4.8
 
